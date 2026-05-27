@@ -20,7 +20,7 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="menu" element={<Menu />} />
-          <Route path="menu/pink-balance" element={<Product />} />
+          <Route path="menu/:productId" element={<Product />} />
           <Route path="story" element={<Story />} />
           <Route path="find-us" element={<FindUs />} />
           <Route path="page/:slug" element={<TextPage />} />

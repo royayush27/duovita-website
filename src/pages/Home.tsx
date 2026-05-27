@@ -244,7 +244,7 @@ export default function Home() {
                 {...fadeUp}
                 transition={{ duration: 0.65, delay: i * 0.1, ease: [0.22, 0.61, 0.36, 1] }}
               >
-                <Link to="/menu/pink-balance" className="block group">
+                <Link to={`/menu/${duo.id}`} className="block group">
                   <div className="glass-card rounded-3xl overflow-hidden hover:-translate-y-2 hover:shadow-2xl transition-all duration-400">
                     <div className={`aspect-[4/3] bg-gradient-to-br ${duo.gradient} overflow-hidden`}>
                       <img

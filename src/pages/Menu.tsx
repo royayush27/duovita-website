@@ -4,52 +4,9 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Plus, ArrowRight, Sparkles } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
-
-import matchaCoffeeImg from '../assets/images/duo_cup_coffee_matcha_1779329655007.png';
-import milkteaCollagenImg from '../assets/images/duo_cup_milktea_collagen_1779329673545.png';
-import kombuchaSmoothieImg from '../assets/images/duo_cup_kombucha_smoothie_1779329691723.png';
-import cacaoGoldenImg from '../assets/images/duo_cup_cacao_golden_1779329731426.png';
-import dragonCitrusImg from '../assets/images/duo_cup_dragonfruit_citrus_1779329748981.png';
+import { menuCategories, seasonalMenuItem } from '../data/menu';
 
 const filters = ['All', 'Focus & Calm', 'Energy & Glow', 'Indulgence & Wellness', 'Refresh & Revive'];
-
-const categories = [
-  {
-    name: 'Focus & Calm',
-    emoji: '☽',
-    description: 'Balance sharp mental clarity with grounded, jitter-free calm.',
-    items: [
-      { id: 'the-clarity-duo', name: 'The Clarity Duo', price: 8500, description: 'Single-origin Ethiopian Cold Brew with Lion\'s Mane for sharp focus, paired with ceremonial iced matcha and L-Theanine for grounded calm.', tag: 'FOCUS + CALM', image: matchaCoffeeImg, category: 'Focus & Calm', badges: ['Lion\'s Mane', 'L-Theanine'] },
-      { id: 'the-zen-balance', name: 'The Zen Balance', price: 7500, description: 'Earthy roasted Hojicha tea meets lavender-infused crystal lemonade with ashwagandha adaptogens. The perfect afternoon reset.', tag: 'RELAX + FOCUS', image: matchaCoffeeImg, category: 'Focus & Calm', badges: ['Ashwagandha', 'Zero Sugar'] },
-    ],
-  },
-  {
-    name: 'Energy & Glow',
-    emoji: '✦',
-    description: 'Nourish your skin from the inside while fueling your day.',
-    items: [
-      { id: 'the-seoul-blossom', name: 'The Seoul Blossom', price: 9000, description: 'Creamy Earl Grey milk tea with honey boba paired with wild rose sparkling collagen water. Beauty from within, sip by sip.', tag: 'INDULGE + GLOW', image: milkteaCollagenImg, category: 'Energy & Glow', badges: ['Marine Collagen', 'Boba'] },
-      { id: 'the-radiance-split', name: 'The Radiance Split', price: 8500, description: 'Fizzy golden ginger kombucha for gut health meets antioxidant-rich acai berry smoothie. Vitality you can taste.', tag: 'VITALITY + SHINE', image: kombuchaSmoothieImg, category: 'Energy & Glow', badges: ['Probiotics', 'Antioxidants'] },
-    ],
-  },
-  {
-    name: 'Indulgence & Wellness',
-    emoji: '◈',
-    description: 'Decadent flavors expertly paired with healing properties.',
-    items: [
-      { id: 'the-cacao-vitality', name: 'The Cacao Vitality', price: 8000, description: 'Iced dark chocolate cacao milk with sea salt meets turmeric and ginger golden spice latte. Treat yourself to something that loves you back.', tag: 'TREAT + HEAL', image: cacaoGoldenImg, category: 'Indulgence & Wellness', badges: ['Turmeric', 'Sea Salt'] },
-      { id: 'the-dessert-duo', name: 'The Dessert Duo', price: 8500, description: 'Sweet taro root cream milk meets vanilla bean whey protein shake. Recover and restore — deliciously.', tag: 'SWEET + RECOVER', image: milkteaCollagenImg, category: 'Indulgence & Wellness', badges: ['Whey Protein', 'Taro'] },
-    ],
-  },
-  {
-    name: 'Refresh & Revive',
-    emoji: '◯',
-    description: 'Bright, sparkling, and deeply hydrating combinations.',
-    items: [
-      { id: 'the-citrus-oasis', name: 'The Citrus Oasis', price: 7000, description: 'Bright pink dragonfruit lemonade meets sparkling yuzu citrus with electrolytes. Hydrate beautifully, awaken effortlessly.', tag: 'HYDRATE + AWAKEN', image: dragonCitrusImg, category: 'Refresh & Revive', badges: ['Electrolytes', 'Yuzu'] },
-    ],
-  },
-];
 
 const fadeUp = {
   initial: { opacity: 0, y: 20 },
@@ -63,8 +20,8 @@ export default function Menu() {
   const [activeFilter, setActiveFilter] = useState('All');
 
   const filteredCategories = activeFilter === 'All'
-    ? categories
-    : categories.filter((c) => c.name === activeFilter);
+    ? menuCategories
+    : menuCategories.filter((c) => c.name === activeFilter);
 
   return (
     <motion.main
@@ -116,11 +73,11 @@ export default function Menu() {
               onClick={() => {
                 trackEvent({
                   eventType: 'seasonal_cta_clicked',
-                  itemId: 'pink-balance',
-                  itemName: 'The Kombucha Glow Duo',
-                  itemCategory: 'Seasonal Special',
+                  itemId: seasonalMenuItem.id,
+                  itemName: seasonalMenuItem.name,
+                  itemCategory: seasonalMenuItem.category,
                 });
-                navigate('/menu/pink-balance');
+                navigate(`/menu/${seasonalMenuItem.id}`);
               }}
               className="self-start flex items-center gap-2 bg-inverse-primary text-on-primary-fixed font-sans text-xs font-bold uppercase tracking-wider px-7 py-3.5 rounded-full hover:opacity-90 hover:-translate-y-0.5 transition-all duration-300 shadow-lg"
             >
@@ -129,8 +86,8 @@ export default function Menu() {
           </div>
           <div className="aspect-[4/3] md:aspect-auto overflow-hidden">
             <img
-              src={kombuchaSmoothieImg}
-              alt="Seasonal Kombucha Glow Duo"
+              src={seasonalMenuItem.image}
+              alt={seasonalMenuItem.name}
               className="w-full h-full object-cover opacity-90"
             />
           </div>
@@ -195,7 +152,7 @@ export default function Menu() {
                         itemCategory: category.name,
                         metadata: { price: item.price, badges: item.badges, tag: item.tag },
                       });
-                      navigate('/menu/pink-balance');
+                      navigate(`/menu/${item.id}`);
                     }}
                     className="glass-card rounded-2xl overflow-hidden cursor-pointer hover:shadow-xl transition-all duration-300 group"
                   >
