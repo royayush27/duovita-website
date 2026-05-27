@@ -1,3 +1,4 @@
+import { trackEvent } from '../utils/tracking';
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronDown, ArrowLeft, Heart, Droplets, Leaf } from 'lucide-react';
@@ -14,13 +15,26 @@ export default function Product() {
   const [addons, setAddons] = useState<string[]>([]);
 
   const toggleAccordion = (id: string) => {
-    setOpenAccordion(openAccordion === id ? null : id);
+    const nextValue = openAccordion === id ? null : id;
+    setOpenAccordion(nextValue);
+    trackEvent({
+      eventType: nextValue ? 'accordion_opened' : 'accordion_closed',
+      itemId: 'the-clarity-duo',
+      itemName: 'The Clarity Duo',
+      eventValue: id,
+    });
   };
 
   const toggleAddon = (addon: string) => {
-    setAddons(prev => 
-      prev.includes(addon) ? prev.filter(a => a !== addon) : [...prev, addon]
-    );
+    const isRemoving = addons.includes(addon);
+    setAddons(prev => isRemoving ? prev.filter(a => a !== addon) : [...prev, addon]);
+    trackEvent({
+      eventType: isRemoving ? 'addon_removed' : 'addon_added',
+      itemId: 'the-clarity-duo',
+      itemName: 'The Clarity Duo',
+      eventValue: addon,
+      metadata: { currentSize: size, currentMilk: milkOption },
+    });
   };
 
   const calculatePrice = () => {
@@ -40,20 +54,29 @@ export default function Product() {
       options['Add-ons'] = addons.join(', ');
     }
 
+    trackEvent({
+      eventType: 'product_add_to_cart',
+      itemId: 'the-clarity-duo',
+      itemName: 'The Clarity Duo',
+      itemCategory: 'SPLIT COMPARTMENT',
+      eventValue: calculatePrice().toString(),
+      metadata: { size, milkOption, addons, price: calculatePrice(), source: 'product_page' },
+    });
+
     addToCart({
       id: 'the-clarity-duo',
       name: 'The Clarity Duo',
       price: calculatePrice(),
       quantity: 1,
       image: matchaCoffeeImg,
-      options
+      options,
     });
   };
 
   return (
-    <motion.main 
-      initial={{ opacity: 0 }} 
-      animate={{ opacity: 1 }} 
+    <motion.main
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className="flex-grow pt-28 pb-32 px-5 md:px-16 max-w-7xl mx-auto w-full"
     >
@@ -69,12 +92,21 @@ export default function Product() {
         <div className="lg:col-span-6 relative">
           <div className="lg:sticky lg:top-32 space-y-4">
             <div className="w-full aspect-square rounded-[2rem] overflow-hidden glass-card relative group shadow-sm bg-white/50">
-              <img 
-                src={matchaCoffeeImg} 
-                alt="The Clarity Duo" 
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 mix-blend-multiply" 
+              <img
+                src={matchaCoffeeImg}
+                alt="The Clarity Duo"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-90 mix-blend-multiply"
               />
-              <button className="absolute top-4 right-4 bg-surface/80 backdrop-blur-md rounded-full p-3 text-primary shadow-sm hover:scale-110 active:scale-95 transition-transform">
+              <button
+                onClick={() =>
+                  trackEvent({
+                    eventType: 'favorite_clicked',
+                    itemId: 'the-clarity-duo',
+                    itemName: 'The Clarity Duo',
+                  })
+                }
+                className="absolute top-4 right-4 bg-surface/80 backdrop-blur-md rounded-full p-3 text-primary shadow-sm hover:scale-110 active:scale-95 transition-transform"
+              >
                 <Heart size={20} className="fill-current" />
               </button>
             </div>
@@ -91,19 +123,19 @@ export default function Product() {
           <div>
             <p className="font-sans text-xs font-bold uppercase tracking-[0.15em] text-secondary mb-2">SPLIT COMPARTMENT</p>
             <h1 className="font-serif text-4xl lg:text-5xl font-bold text-on-surface mb-4">The Clarity Duo</h1>
-            
+
             <div className="flex flex-wrap items-center gap-3 mb-6">
               <span className="bg-[#E6E1DC] text-[#4A3D35] px-4 py-1.5 rounded-full font-sans text-xs font-bold uppercase">L-Theanine</span>
               <span className="bg-[#E6E1DC] text-[#4A3D35] px-4 py-1.5 rounded-full font-sans text-xs font-bold uppercase">Lion's Mane</span>
               <span className="bg-primary/10 text-primary px-4 py-1.5 rounded-full font-sans text-xs font-bold uppercase tracking-widest">DUO VITA EXCLUSIVE</span>
             </div>
-            
+
             <p className="font-serif text-3xl font-bold text-primary mb-6">₩{calculatePrice().toLocaleString()}</p>
             <p className="font-sans text-lg text-on-surface-variant leading-relaxed">
               Why choose when you can experience both? The left compartment holds our slow-dripped Ethiopian Cold Brew, infused with Lion's Mane for sharp focus. The right compartment offers Ceremonial Grade Matcha enriched with L-Theanine for a jitter-free, grounded calm. Sip alternately to find your ultimate flow state.
             </p>
           </div>
-          
+
           <hr className="border-outline-variant/30" />
 
           {/* Config Options */}
@@ -112,14 +144,34 @@ export default function Product() {
               <h3 className="font-sans text-xs font-bold uppercase text-on-surface mb-4">DUO SIZE</h3>
               <div className="grid grid-cols-2 gap-4">
                 <label className="cursor-pointer">
-                  <input type="radio" name="size" value="Regular Duo" checked={size === 'Regular Duo'} onChange={(e) => setSize(e.target.value)} className="peer sr-only" />
+                  <input
+                    type="radio"
+                    name="size"
+                    value="Regular Duo"
+                    checked={size === 'Regular Duo'}
+                    onChange={(e) => {
+                      setSize(e.target.value);
+                      trackEvent({ eventType: 'size_selected', itemId: 'the-clarity-duo', itemName: 'The Clarity Duo', eventValue: e.target.value });
+                    }}
+                    className="peer sr-only"
+                  />
                   <div className="glass-card rounded-2xl p-4 text-center border-2 border-transparent peer-checked:border-primary peer-checked:bg-primary/5 transition-all">
                     <span className="font-sans text-base block text-on-surface">Regular Duo</span>
                     <span className="font-sans text-xs font-bold uppercase text-on-surface-variant block mt-1">16 oz (8oz/8oz)</span>
                   </div>
                 </label>
                 <label className="cursor-pointer">
-                  <input type="radio" name="size" value="Large Duo" checked={size === 'Large Duo'} onChange={(e) => setSize(e.target.value)} className="peer sr-only" />
+                  <input
+                    type="radio"
+                    name="size"
+                    value="Large Duo"
+                    checked={size === 'Large Duo'}
+                    onChange={(e) => {
+                      setSize(e.target.value);
+                      trackEvent({ eventType: 'size_selected', itemId: 'the-clarity-duo', itemName: 'The Clarity Duo', eventValue: e.target.value });
+                    }}
+                    className="peer sr-only"
+                  />
                   <div className="glass-card rounded-2xl p-4 text-center border-2 border-transparent peer-checked:border-primary peer-checked:bg-primary/5 transition-all">
                     <span className="font-sans text-base block text-on-surface">Large Duo</span>
                     <span className="font-sans text-xs font-bold uppercase text-on-surface-variant block mt-1">24 oz (+₩1,500)</span>
@@ -133,13 +185,23 @@ export default function Product() {
               <div className="flex flex-wrap gap-4">
                 {['Oat Milk', 'Whole Milk', 'Almond Milk'].map(milk => (
                   <label key={milk} className="flex items-center gap-3 cursor-pointer p-3 glass-card rounded-2xl border-2 border-transparent hover:border-primary/30 transition-all flex-1 min-w-[120px] justify-center">
-                    <input type="radio" name="milk" value={milk} checked={milkOption === milk} onChange={(e) => setMilkOption(e.target.value)} className="sr-only peer" />
+                    <input
+                      type="radio"
+                      name="milk"
+                      value={milk}
+                      checked={milkOption === milk}
+                      onChange={(e) => {
+                        setMilkOption(e.target.value);
+                        trackEvent({ eventType: 'milk_selected', itemId: 'the-clarity-duo', itemName: 'The Clarity Duo', eventValue: e.target.value });
+                      }}
+                      className="sr-only peer"
+                    />
                     <span className="font-sans text-sm text-on-surface peer-checked:text-primary peer-checked:font-bold">{milk}</span>
                   </label>
                 ))}
               </div>
             </div>
-            
+
             <div>
               <h3 className="font-sans text-xs font-bold uppercase text-on-surface mb-4">COMPARTMENT ADD-ONS</h3>
               <div className="space-y-3">
@@ -162,7 +224,7 @@ export default function Product() {
           </div>
 
           <div className="pt-4 sticky bottom-4 lg:static z-40">
-            <button 
+            <button
               onClick={handleAddToCart}
               className="w-full btn-gradient rounded-[1.5rem] py-5 px-8 flex items-center justify-between shadow-lg hover:shadow-xl active:scale-[0.99] transition-all"
             >
@@ -173,9 +235,9 @@ export default function Product() {
 
           <div className="mt-12 space-y-4">
             <h3 className="font-serif text-2xl font-bold text-on-surface mb-6">What's Inside</h3>
-            
+
             <div className="glass-card rounded-[2rem] overflow-hidden">
-              <button 
+              <button
                 onClick={() => toggleAccordion('lionsmane')}
                 className="w-full flex items-center justify-between p-6 cursor-pointer hover:bg-white/40 transition-colors"
               >
@@ -187,7 +249,7 @@ export default function Product() {
               </button>
               <AnimatePresence>
                 {openAccordion === 'lionsmane' && (
-                  <motion.div 
+                  <motion.div
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
@@ -202,7 +264,7 @@ export default function Product() {
             </div>
 
             <div className="glass-card rounded-[2rem] overflow-hidden">
-              <button 
+              <button
                 onClick={() => toggleAccordion('theanine')}
                 className="w-full flex items-center justify-between p-6 cursor-pointer hover:bg-white/40 transition-colors"
               >
@@ -214,7 +276,7 @@ export default function Product() {
               </button>
               <AnimatePresence>
                 {openAccordion === 'theanine' && (
-                  <motion.div 
+                  <motion.div
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}

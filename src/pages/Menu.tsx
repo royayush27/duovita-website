@@ -1,3 +1,4 @@
+import { trackEvent } from '../utils/tracking';
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Plus, ArrowRight, Sparkles } from 'lucide-react';
@@ -112,7 +113,15 @@ export default function Menu() {
               ))}
             </div>
             <button
-              onClick={() => navigate('/menu/pink-balance')}
+              onClick={() => {
+                trackEvent({
+                  eventType: 'seasonal_cta_clicked',
+                  itemId: 'pink-balance',
+                  itemName: 'The Kombucha Glow Duo',
+                  itemCategory: 'Seasonal Special',
+                });
+                navigate('/menu/pink-balance');
+              }}
               className="self-start flex items-center gap-2 bg-inverse-primary text-on-primary-fixed font-sans text-xs font-bold uppercase tracking-wider px-7 py-3.5 rounded-full hover:opacity-90 hover:-translate-y-0.5 transition-all duration-300 shadow-lg"
             >
               Try This Season <ArrowRight size={14} />
@@ -135,7 +144,10 @@ export default function Menu() {
             {filters.map((filter) => (
               <button
                 key={filter}
-                onClick={() => setActiveFilter(filter)}
+                onClick={() => {
+                  setActiveFilter(filter);
+                  trackEvent({ eventType: 'filter_clicked', eventValue: filter, itemCategory: filter });
+                }}
                 className={`whitespace-nowrap px-5 py-2 rounded-full font-sans text-xs font-bold uppercase tracking-wider shadow-sm transition-all duration-300 flex-shrink-0 ${
                   activeFilter === filter
                     ? 'bg-primary text-on-primary shadow-md'
@@ -175,7 +187,16 @@ export default function Menu() {
                   <motion.div
                     key={item.id}
                     whileHover={{ y: -4 }}
-                    onClick={() => navigate('/menu/pink-balance')}
+                    onClick={() => {
+                      trackEvent({
+                        eventType: 'menu_item_opened',
+                        itemId: item.id,
+                        itemName: item.name,
+                        itemCategory: category.name,
+                        metadata: { price: item.price, badges: item.badges, tag: item.tag },
+                      });
+                      navigate('/menu/pink-balance');
+                    }}
                     className="glass-card rounded-2xl overflow-hidden cursor-pointer hover:shadow-xl transition-all duration-300 group"
                   >
                     <div className="flex items-stretch">
@@ -211,6 +232,14 @@ export default function Menu() {
                             onClick={(e) => {
                               e.preventDefault();
                               e.stopPropagation();
+                              trackEvent({
+                                eventType: 'quick_add_to_cart',
+                                itemId: item.id,
+                                itemName: item.name,
+                                itemCategory: category.name,
+                                eventValue: 'Regular Duo',
+                                metadata: { price: item.price, source: 'menu_card' },
+                              });
                               addToCart({ id: item.id, name: item.name, price: item.price, quantity: 1, image: item.image, options: { size: 'Regular Duo' } });
                             }}
                             className="w-9 h-9 rounded-full bg-primary/10 text-primary flex items-center justify-center hover:bg-primary hover:text-on-primary transition-all duration-300 shadow-sm flex-shrink-0"
