@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import { Layout } from './components/Layout';
 import Home from './pages/Home';
 import Menu from './pages/Menu';
@@ -26,6 +27,7 @@ export default function App() {
           <Route path="page/:slug" element={<TextPage />} />
         </Route>
       </Routes>
+      <Analytics />
     </BrowserRouter>
   );
 }
