@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../assets/images/website-logo.png';
+import logo from '../assets/images/headbar-logo.png';
 
 export function Logo({className = '', variant = 'full',})
 {
