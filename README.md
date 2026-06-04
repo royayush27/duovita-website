@@ -26,24 +26,24 @@ The visual system is intentionally premium: soft glass panels, pastel gradients,
 <table>
   <tr>
     <td width="50%">
-      <img src="docs/screenshots/menu.png" alt="Duo Vita menu page with seasonal feature" width="100%">
+      <img src="docs/screenshots/menu.png" alt="Duo Vita Menu Page With Seasonal Feature" width="120%">
       <br>
       <sub><strong>Menu:</strong> seasonal feature, category filters, and product cards.</sub>
     </td>
     <td width="50%">
-      <img src="docs/screenshots/product.png" alt="Duo Vita product detail page" width="100%">
+      <img src="docs/screenshots/product.png" alt="Duo Vita Product Detail page" width="120%">
       <br>
       <sub><strong>Product:</strong> configurable drink detail page with cart-ready options.</sub>
     </td>
   </tr>
   <tr>
     <td width="50%">
-      <img src="docs/screenshots/mobile-home.png" alt="Duo Vita mobile home page" width="100%">
+      <img src="docs/screenshots/menu-options.png" alt="DuoVita Menu Options" width="90%">
       <br>
       <sub><strong>Responsive:</strong> mobile navigation and stacked home hero.</sub>
     </td>
     <td width="50%">
-      <img src="docs/screenshots/story.png" alt="Duo Vita story page" width="100%">
+      <img src="docs/screenshots/story.png" alt="Duo Vita Story Page" width="120%">
       <br>
       <sub><strong>Story:</strong> editorial brand narrative and positioning page.</sub>
     </td>
