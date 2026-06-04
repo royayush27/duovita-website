@@ -38,7 +38,7 @@ export function Navbar() {
         : 'bg-surface/75 border-white/30'
     )}>
       <div className={cn(
-        'flex justify-between items-center w-full px-5 md:px-16 max-w-7xl mx-auto transition-all duration-300',
+        'flex justify-between items-center w-full max-w-full px-5 md:px-16 max-w-7xl mx-auto transition-all duration-300',
         scrolled ? 'h-16' : 'h-20'
       )}>
         <NavLink to="/" className="flex-shrink-0">
@@ -94,7 +94,7 @@ export function Navbar() {
 
           {/* Mobile hamburger */}
           <button
-            className="md:hidden text-on-surface p-2 rounded-full hover:bg-surface-container transition-colors"
+            className="md:hidden shrink-0 mr-1 text-on-surface p-2 rounded-full hover:bg-surface-container transition-colors"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >

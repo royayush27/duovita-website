@@ -8,7 +8,7 @@ import { CartDrawer } from './CartDrawer';
 export function Layout() {
   return (
     <CartProvider>
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col overflow-x-hidden">
         <Navbar />
         <CartDrawer />
         <div className="flex-grow flex flex-col">

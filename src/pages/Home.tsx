@@ -78,20 +78,20 @@ export default function Home() {
       className="flex-grow"
     >
       {/* ── HERO ─────────────────────────────────────────────── */}
-      <section className="hero-gradient min-h-[95vh] flex items-center justify-center pt-24 pb-16 px-5 md:px-16 overflow-hidden relative">
+      <section className="hero-gradient w-full max-w-full min-h-[95vh] flex items-center justify-center pt-24 pb-16 px-5 md:px-16 overflow-hidden relative">
         {/* decorative blobs */}
         <div className="absolute top-24 left-8 w-72 h-72 rounded-full bg-primary-fixed/30 blur-3xl pointer-events-none" />
         <div className="absolute bottom-16 right-8 w-80 h-80 rounded-full bg-tertiary-container/40 blur-3xl pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center w-full relative z-10">
+        <div className="w-full max-w-[calc(100vw-2.5rem)] md:max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10 items-center min-w-0 relative z-10">
           {/* Left */}
           <motion.div
             initial={{ opacity: 0, y: 36 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 0.61, 0.36, 1] }}
-            className="space-y-8"
+            className="space-y-8 min-w-0 max-w-full"
           >
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <span className="text-primary text-lg">✦</span>
               <span className="font-sans text-xs font-bold tracking-[0.18em] uppercase text-secondary bg-secondary-fixed/60 px-4 py-1.5 rounded-full border border-white/50">
                 The Seoul Standard
@@ -103,33 +103,33 @@ export default function Home() {
               Elegance in<br />Every Sip.
             </h1>
 
-            <p className="font-sans text-lg text-on-surface-variant max-w-md leading-relaxed">
+            <p className="font-sans text-lg text-on-surface-variant max-w-full sm:max-w-md w-full leading-relaxed">
               Where high-end café culture meets functional wellness. Our signature split-cup delivers indulgence and vitality in one beautiful moment.
             </p>
 
-            <div className="flex flex-wrap gap-4 pt-2">
+            <div className="flex flex-wrap gap-3 sm:gap-4 pt-2">
               <Link
                 to="/menu"
-                className="bg-primary text-on-primary font-sans text-xs font-bold uppercase tracking-wider px-8 py-4 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex items-center gap-2"
+                className="bg-primary text-on-primary font-sans text-xs font-bold uppercase tracking-wider px-6 sm:px-8 py-4 rounded-full shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex items-center gap-2"
               >
                 Discover the Menu <ArrowRight size={14} />
               </Link>
               <Link
                 to="/story"
-                className="border border-outline/50 font-sans text-xs font-bold uppercase px-8 py-4 rounded-full text-on-surface hover:bg-surface-container/60 transition-all duration-300 tracking-[0.12em] backdrop-blur-sm"
+                className="border border-outline/50 font-sans text-xs font-bold uppercase px-6 sm:px-8 py-4 rounded-full text-on-surface hover:bg-surface-container/60 transition-all duration-300 tracking-[0.12em] backdrop-blur-sm"
               >
                 Our Story
               </Link>
             </div>
 
             {/* Social proof micro */}
-            <div className="flex items-center gap-3 pt-2">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2 pt-2">
               <div className="flex -space-x-2">
                 {['#f2b6c8','#ddbbea','#cbbefd','#ffd9e3'].map((c, i) => (
                   <div key={i} className="w-8 h-8 rounded-full border-2 border-white/80" style={{ background: c }} />
                 ))}
               </div>
-              <div className="flex items-center gap-1.5">
+              <div className="flex flex-wrap items-center gap-1.5">
                 {[...Array(5)].map((_,i) => <Star key={i} size={12} className="text-primary fill-primary" />)}
                 <span className="font-sans text-xs text-on-surface-variant ml-1">4.9 · 2,400+ rituals daily</span>
               </div>
