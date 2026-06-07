@@ -48,7 +48,7 @@ export const menuCategories: MenuCategory[] = [
       {
         id: 'the-clarity-duo',
         name: 'The Clarity Duo',
-        price: 8500,
+        price: 7500,
         description: 'Single-origin Ethiopian Cold Brew with Lion\'s Mane for sharp focus, paired with ceremonial iced matcha and L-Theanine for grounded calm.',
         detailDescription: 'Why choose when you can experience both? The left compartment holds our slow-dripped Ethiopian Cold Brew, infused with Lion\'s Mane for sharp focus. The right compartment offers Ceremonial Grade Matcha enriched with L-Theanine for a jitter-free, grounded calm. Sip alternately to find your ultimate flow state.',
         tag: 'FOCUS + CALM',
@@ -75,7 +75,7 @@ export const menuCategories: MenuCategory[] = [
       {
         id: 'the-zen-balance',
         name: 'The Zen Balance',
-        price: 7500,
+        price: 7000,
         description: 'Earthy roasted Hojicha tea meets lavender-infused crystal lemonade with ashwagandha adaptogens. The perfect afternoon reset.',
         detailDescription: 'Roasted Hojicha brings a soft, nutty tea base while lavender crystal lemonade adds a bright lift. Ashwagandha rounds out the duo for a calm afternoon reset that still feels like a cafe treat.',
         tag: 'RELAX + FOCUS',
@@ -109,7 +109,7 @@ export const menuCategories: MenuCategory[] = [
       {
         id: 'the-seoul-blossom',
         name: 'The Seoul Blossom',
-        price: 9000,
+        price: 8000,
         description: 'Creamy Earl Grey milk tea with honey boba paired with wild rose sparkling collagen water. Beauty from within, sip by sip.',
         detailDescription: 'Creamy Earl Grey milk tea and honey boba deliver the cafe indulgence, while wild rose sparkling collagen water keeps the second side light, floral, and beauty-focused.',
         tag: 'INDULGE + GLOW',
@@ -136,7 +136,7 @@ export const menuCategories: MenuCategory[] = [
       {
         id: 'the-radiance-split',
         name: 'The Radiance Split',
-        price: 8500,
+        price: 7500,
         description: 'Fizzy golden ginger kombucha for gut health meets antioxidant-rich acai berry smoothie. Vitality you can taste.',
         detailDescription: 'Golden ginger kombucha brings probiotic sparkle and a clean bite, balanced by an acai berry smoothie side with a lush antioxidant profile.',
         tag: 'VITALITY + SHINE',
@@ -170,7 +170,7 @@ export const menuCategories: MenuCategory[] = [
       {
         id: 'the-cacao-vitality',
         name: 'The Cacao Vitality',
-        price: 8000,
+        price: 7500,
         description: 'Iced dark chocolate cacao milk with sea salt meets turmeric and ginger golden spice latte. Treat yourself to something that loves you back.',
         detailDescription: 'A dark cacao milk side gives this duo a dessert-like depth, while turmeric and ginger golden spice latte adds warmth, spice, and a wellness-forward finish.',
         tag: 'TREAT + HEAL',
@@ -197,7 +197,7 @@ export const menuCategories: MenuCategory[] = [
       {
         id: 'the-dessert-duo',
         name: 'The Dessert Duo',
-        price: 8500,
+        price: 7500,
         description: 'Sweet taro root cream milk meets vanilla bean whey protein shake. Recover and restore - deliciously.',
         detailDescription: 'Sweet taro root cream milk gives this duo its nostalgic dessert character, paired with a vanilla bean whey protein shake designed for post-work recovery.',
         tag: 'SWEET + RECOVER',
@@ -262,7 +262,7 @@ export const menuCategories: MenuCategory[] = [
 export const seasonalMenuItem: MenuItem = {
   id: 'the-kombucha-glow-duo',
   name: 'The Kombucha Glow Duo',
-  price: 9500,
+  price: 8500,
   description: 'Summer\'s exclusive: Golden ginger kombucha meets antioxidant acai smoothie with vitamin C boost. Available until August 31st.',
   detailDescription: 'This seasonal duo pairs golden ginger kombucha with an antioxidant-rich acai smoothie and a vitamin C boost. It is bright, fizzy, and built for warm-weather energy.',
   tag: 'LIMITED TIME',
